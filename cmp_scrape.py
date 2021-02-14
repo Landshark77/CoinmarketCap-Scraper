@@ -32,14 +32,14 @@ for x in range(1, 42):
 	for i in listings:
 #		coins[str(i['id'])] = i['slug']
 		if i['quote']['USD']['price'] < 5 and i['quote']['USD']['market_cap'] > 0:
-			if (i['quote']['USD']['volume_24h'] / i['quote']['USD']['market_cap'] >= .1) and (i['quote']['USD']['volume_24h'] / i['quote']['USD']['market_cap'] <= .5)
-			market_cap.append(i['quote']['USD']['market_cap'])
-			volume.append(i['quote']['USD']['volume_24h'])
-			slug.append(i['slug'])
-			name.append(i['name'])
-			symbol.append(i['symbol'])
-			price.append(i['quote']['USD']['price'])
-			volcap.append(i['quote']['USD']['volume_24h'] / i['quote']['USD']['market_cap']) 
+			if (i['quote']['USD']['volume_24h'] / i['quote']['USD']['market_cap'] >= .1) and (i['quote']['USD']['volume_24h'] / i['quote']['USD']['market_cap'] <= .5):
+				market_cap.append(i['quote']['USD']['market_cap'])
+				volume.append(i['quote']['USD']['volume_24h'])
+				slug.append(i['slug'])
+				name.append(i['name'])
+				symbol.append(i['symbol'])
+				price.append(i['quote']['USD']['price'])
+				volcap.append(i['quote']['USD']['volume_24h'] / i['quote']['USD']['market_cap']) 
 
 
 #get data for each coin
