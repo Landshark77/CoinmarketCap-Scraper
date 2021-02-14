@@ -8,14 +8,11 @@ coins = {}
 
 market_cap = []
 volume = []
-timestamp = []
 name = []
 symbol = []
 slug = []
 price = []
 volcap = []
-
-intCoinCount = 0
 
 #Load coins
 for x in range(1, 42):
@@ -40,30 +37,6 @@ for x in range(1, 42):
 				symbol.append(i['symbol'])
 				price.append(i['quote']['USD']['price'])
 				volcap.append(i['quote']['USD']['volume_24h'] / i['quote']['USD']['market_cap']) 
-
-
-#get data for each coin
-#for i in coins:
-#	intCoinCount += 1
-#	page = requests.get(f'https://coinmarketcap.com/currencies/{coins[i]}/historical-data/')
-#	print(f'Retrieving stats {intCoinCount} of {len(coins)} for >> {coins[i]}')
-#	time.sleep(1) #must sleep to avoid throttling by website.  increase as needed.
-#	soup = BeautifulSoup(page.content, 'html.parser')
-#	data = soup.find('script', id="__NEXT_DATA__",type="application/json")
-#	coin_data = json.loads(data.contents[0])
-#	quotes = coin_data['props']['initialProps']['pageProps']['info']
-#	if (quotes['status'] == "active") and (quotes['statistics']['price'] < 5):
-#		market_cap.append(quotes['statistics']['marketCap'])
-#		volume.append(quotes['statistics']['volumeYesterday'])
-#		slug.append(coins[i])
-#		name.append(quotes['name'])
-#		symbol.append(quotes['symbol'])
-#		category.append(quotes['category'])
-#		price.append(quotes['statistics']['price'])
-#		if quotes['statistics']['marketCap'] > 0:
-#			volcap.append(quotes['statistics']['volumeYesterday'] / quotes['statistics']['marketCap']) 
-#		else:
-#			volcap.append(0)
 
 df = pd.DataFrame(columns = ['slug', 'name', 'symbol','price', 'MarketCap', 'volume','Volume / MarketCap'])
 df['slug'] = slug
