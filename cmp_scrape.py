@@ -31,7 +31,7 @@ for x in range(1, 42):
 	listings = coin_data['props']['initialState']['cryptocurrency']['listingLatest']['data']
 	for i in listings:
 #		coins[str(i['id'])] = i['slug']
-		if i['quote']['USD']['price'] < 5 and i['quote']['USD']['market_cap'] > 0:
+		if i['quote']['USD']['price'] < 5 and i['quote']['USD']['market_cap'] > 0 and i['quote']['USD']['price'] > 0:
 			if (i['quote']['USD']['volume_24h'] / i['quote']['USD']['market_cap'] >= .1) and (i['quote']['USD']['volume_24h'] / i['quote']['USD']['market_cap'] <= .5):
 				market_cap.append(i['quote']['USD']['market_cap'])
 				volume.append(i['quote']['USD']['volume_24h'])
