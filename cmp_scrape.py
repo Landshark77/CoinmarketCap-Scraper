@@ -17,7 +17,7 @@ price = []
 volcap = []
 
 #Load coins
-for x in range(2):
+for x in range(41):
 	print(f'Retrieving Coin list page {i} of {range(2)}')
 	if x == 1: 
 		cmc = requests.get('https://coinmarketcap.com/')
