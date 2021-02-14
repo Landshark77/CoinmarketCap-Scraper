@@ -16,11 +16,8 @@ volcap = []
 
 #Load coins
 for x in range(1, 42):
-	print(f'Building Coin list page {x} of 41')
-	if x == 1: 
-		cmc = requests.get('https://coinmarketcap.com/')
-	else:
-		cmc = requests.get(f'https://coinmarketcap.com/?page={x}')
+	print(f'Gathering Coin data from page {x} of 41')
+	cmc = requests.get(f'https://coinmarketcap.com/?page={x}')
 	time.sleep(0.5)
 	soup = BeautifulSoup(cmc.content, 'html.parser')
 	data = soup.find('script', id="__NEXT_DATA__",type="application/json")
