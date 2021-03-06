@@ -4,8 +4,6 @@ import pandas as pd
 import json
 import time
 
-coins = {}
-
 market_cap = []
 volume = []
 name = []
@@ -24,16 +22,15 @@ for x in range(1, 42):
 	coin_data = json.loads(data.contents[0])
 	listings = coin_data['props']['initialState']['cryptocurrency']['listingLatest']['data']
 	for i in listings:
-#		coins[str(i['id'])] = i['slug']
-		if i['quote']['USD']['price'] < 5 and i['quote']['USD']['market_cap'] > 0 and i['quote']['USD']['price'] > 0:
-			if (i['quote']['USD']['volume_24h'] / i['quote']['USD']['market_cap'] >= .1) and (i['quote']['USD']['volume_24h'] / i['quote']['USD']['market_cap'] <= .5):
-				market_cap.append(i['quote']['USD']['market_cap'])
-				volume.append(i['quote']['USD']['volume_24h'])
+		if i['quote']['USD']['price'] < 5 and i['quote']['USD']['marketCap'] > 0 and i['quote']['USD']['price'] >= 0.01 and i['quote']['USD']['volume24h'] >= 1000000:
+			if (i['quote']['USD']['volume24h'] / i['quote']['USD']['marketCap'] >= .1) and (i['quote']['USD']['volume24h'] / i['quote']['USD']['marketCap'] <= .5):
+				market_cap.append(i['quote']['USD']['marketCap'])
+				volume.append(i['quote']['USD']['volume24h'])
 				slug.append(i['slug'])
 				name.append(i['name'])
 				symbol.append(i['symbol'])
 				price.append(i['quote']['USD']['price'])
-				volcap.append(i['quote']['USD']['volume_24h'] / i['quote']['USD']['market_cap']) 
+				volcap.append(i['quote']['USD']['volume24h'] / i['quote']['USD']['marketCap']) 
 
 df = pd.DataFrame(columns = ['slug', 'name', 'symbol','price', 'MarketCap', 'volume','Volume / MarketCap'])
 df['slug'] = slug
