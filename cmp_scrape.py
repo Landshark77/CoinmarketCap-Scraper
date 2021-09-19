@@ -33,6 +33,7 @@ for x in range(1, numPages+1):
 	coin_data = json.loads(data.contents[0])
 	listings = coin_data['props']['initialState']['cryptocurrency']['listingLatest']['data']
 	for i in listings:
+		#first need to get the column indexes of the data we want to pull back
 		if type(i) == dict:
 			varName = i['keysArr'].index('name')
 			varMarketCap = i['keysArr'].index('quote.USD.marketCap')
@@ -40,6 +41,7 @@ for x in range(1, numPages+1):
 			varSlug = i['keysArr'].index('slug')
 			varSymbol = i['keysArr'].index('symbol')
 			
+			#not sure why, but on a few pages they exclude maxsupply
 			try:
 				varMaxSupply = i['keysArr'].index('maxSupply')
 			except ValueError:
@@ -50,27 +52,28 @@ for x in range(1, numPages+1):
 			varPrice = i['keysArr'].index('quote.USD.price')
 
 		if type(i) == list: 
-			pageNum.append(x)
-			#if int(i[varMarketCap]) > 0: #this will export all coins with a marketcap greater than zero
-			market_cap.append(i[varMarketCap])
-			volume.append(i[var24hrVolume])
-			slug.append(i[varSlug])
-			name.append(i[varName])
-			symbol.append(i[varSymbol])
-			price.append(i[varPrice])
 			
-			try:
-				volcap.append(i[var24hrVolume] / i[varMarketCap]) 
-			except ZeroDivisionError:
-				volcap.append(0)
+			if int(i[varMarketCap]) > 0: #this will export all coins with a marketcap greater than zero
+				pageNum.append(x)
+				market_cap.append(i[varMarketCap])
+				volume.append(i[var24hrVolume])
+				slug.append(i[varSlug])
+				name.append(i[varName])
+				symbol.append(i[varSymbol])
+				price.append(i[varPrice])
+				
+				try:
+					volcap.append(i[var24hrVolume] / i[varMarketCap]) 
+				except ZeroDivisionError:
+					volcap.append(0)
 
-			cirsupply.append(i[varCirSupply])
-			totsupply.append(i[varTotalSupply])
-			
-			if varMaxSupply > 0:
-				maxsupply.append(i[varMaxSupply])
-			else:
-				maxsupply.append(0)
+				cirsupply.append(i[varCirSupply])
+				totsupply.append(i[varTotalSupply])
+				
+				if varMaxSupply > 0:
+					maxsupply.append(i[varMaxSupply])
+				else:
+					maxsupply.append(0)
 
 df['PageNum'] = pageNum
 df['slug'] = slug
