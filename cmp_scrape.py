@@ -5,7 +5,7 @@ import json
 import time
 
 #Update variable to match total number of pages found on coinmarketcap
-numPages = 67 + 1
+numPages = 67
 
 #objectes for pandas
 market_cap = []
@@ -23,9 +23,9 @@ pageNum = []
 df = pd.DataFrame(columns = ['PageNum', 'slug', 'name', 'symbol','price', 'MarketCap', 'volume','Volume / MarketCap','Circulating Supply','Max Supply','Total Supply'])
 
 #Load coins
-for x in range(1, numPages):
+for x in range(1, numPages+1):
 	
-	print(f'Gathering Coin data from page {x} of {numPages-1}')
+	print(f'Gathering Coin data from page {x} of {numPages}')
 	cmc = requests.get(f'https://coinmarketcap.com/?page={x}')
 	time.sleep(0.5)
 	soup = BeautifulSoup(cmc.content, 'html.parser')
@@ -63,12 +63,14 @@ for x in range(1, numPages):
 				volcap.append(i[var24hrVolume] / i[varMarketCap]) 
 			except ZeroDivisionError:
 				volcap.append(0)
-				
+
 			cirsupply.append(i[varCirSupply])
 			totsupply.append(i[varTotalSupply])
 			
 			if varMaxSupply > 0:
 				maxsupply.append(i[varMaxSupply])
+			else:
+				maxsupply.append(0)
 
 df['PageNum'] = pageNum
 df['slug'] = slug
