@@ -7,11 +7,7 @@ import time
 numDataError = 0
 
 #Update variable to match total number of pages found on coinmarketcap
-<<<<<<< HEAD
 numPages = 84
-=======
-numPages = 67
->>>>>>> 44f0384293796571b53717634e77e218d9a333f8
 
 #objectes for pandas
 market_cap = []
@@ -25,21 +21,16 @@ cirsupply = []
 maxsupply = []
 totsupply = []
 pageNum = []
-<<<<<<< HEAD
 OneDayChange = []
 
 df = pd.DataFrame(columns = ['PageNum', 'slug', 'name', 'symbol','price', 'MarketCap', 'volume','Volume / MarketCap','Circulating Supply','Max Supply','Total Supply', '24hr Change'])
-=======
-
-df = pd.DataFrame(columns = ['PageNum', 'slug', 'name', 'symbol','price', 'MarketCap', 'volume','Volume / MarketCap','Circulating Supply','Max Supply','Total Supply'])
->>>>>>> 44f0384293796571b53717634e77e218d9a333f8
 
 #Load coins
 for x in range(1, numPages+1):
 	
 	print(f'Gathering Coin data from page {x} of {numPages}')
 	cmc = requests.get(f'https://coinmarketcap.com/?page={x}')
-	time.sleep(1)
+	time.sleep(0.5)
 	soup = BeautifulSoup(cmc.content, 'html.parser')
 	data = soup.find('script', id="__NEXT_DATA__",type="application/json")
 	coin_data = json.loads(data.contents[0])
@@ -55,12 +46,8 @@ for x in range(1, numPages+1):
 				var24hrVolume = i['keysArr'].index('quote.USD.volume24h')
 				varSlug = i['keysArr'].index('slug')
 				varSymbol = i['keysArr'].index('symbol')
-<<<<<<< HEAD
 				var24hrChange = i['keysArr'].index('quote.USD.percentChange24h')
 
-=======
-				
->>>>>>> 44f0384293796571b53717634e77e218d9a333f8
 				#not sure why, but on a few pages they exclude maxsupply
 				try:
 					varMaxSupply = i['keysArr'].index('maxSupply')
@@ -81,12 +68,8 @@ for x in range(1, numPages+1):
 					name.append(i[varName])
 					symbol.append(i[varSymbol])
 					price.append(i[varPrice])
-<<<<<<< HEAD
 					OneDayChange.append(i[var24hrChange])
 
-=======
-					
->>>>>>> 44f0384293796571b53717634e77e218d9a333f8
 					try:
 						volcap.append(i[var24hrVolume] / i[varMarketCap]) 
 					except ZeroDivisionError:
@@ -115,9 +98,5 @@ df['Volume / MarketCap'] = volcap
 df['Circulating Supply'] = cirsupply
 df['Max Supply'] = maxsupply
 df['Total Supply'] = totsupply
-<<<<<<< HEAD
 df['24hr Change'] = OneDayChange
 df.to_csv('cmp_out.csv',index = False)
-=======
-df.to_csv('cmp_out.csv',index = False)
->>>>>>> 44f0384293796571b53717634e77e218d9a333f8
