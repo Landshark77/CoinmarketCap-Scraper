@@ -2,7 +2,7 @@
 Provides the ability to scrape coinmarketcap.com.
 
 Script performs the following:
-1. Scrapes 41 pages (page count is hard coded)
+1. Scrapes 52 pages (page count is hard coded)
 2. Sleeps in between each page read due to throttling from coinmarketcap.com
 3. Scrapes the following attributes in USD:
     - Market Cap
@@ -12,6 +12,8 @@ Script performs the following:
     - Symbol
     - Price
     - Vol to Market Cap ratio (Volume / Market Cap)
+    - Max Supply
+    - Circulating Supply
 4.  Filters the currency to only those that meet the following criteria
     - Less than $5
     - Vol to Market Cap ratio between 10% - 50%
